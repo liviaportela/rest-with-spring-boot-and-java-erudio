@@ -1,27 +1,23 @@
-package br.com.erudio.model;
+package br.com.erudio.data.vo.v1;
 
-import jakarta.persistence.*;
+import br.com.erudio.model.Person;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+public class PersonVO implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-    @Column(nullable = false, length = 100)
     private String address;
-    @Column(nullable = false, length = 6)
     private String gender;
 
-    public Person() {
+    public PersonVO() {
     }
 
     public Long getId() {
@@ -68,8 +64,8 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id);
+        PersonVO personVO = (PersonVO) o;
+        return Objects.equals(id, personVO.id);
     }
 
     @Override
