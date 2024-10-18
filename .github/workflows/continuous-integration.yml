@@ -28,6 +28,10 @@ jobs:
       working-directory: ./rest-with-spring-boot-and-java-erudio
       run: mvn clean package
 
+    - name: Run Tests
+      working-directory: ./rest-with-spring-boot-and-java-erudio
+      run: mvn test
+
     - name: Docker Compose Build
       working-directory: ./rest-with-spring-boot-and-java-erudio
       run: docker compose build
