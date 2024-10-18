@@ -1,31 +1,36 @@
 package br.com.erudio.data.vo.v1;
 
-import br.com.erudio.model.Person;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonVO implements Serializable {
+@JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender"})
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
-    private Long id;
+    @JsonProperty("id")
+    private Long key;
+
+    //@JsonProperty("first_name") -> Mudando o nome do atributo no corpo da resposta (Custom JSON Serialization)
     private String firstName;
+    //@JsonProperty("last_name") -> Mudando o nome do atributo no corpo da resposta (Custom JSON Serialization)
     private String lastName;
     private String address;
+    //@JsonIgnore -> Removendo o campo do corpo da resposta
     private String gender;
+    private Boolean enabled;
 
     public PersonVO() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getFirstName() {
@@ -60,16 +65,25 @@ public class PersonVO implements Serializable {
         this.gender = gender;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         PersonVO personVO = (PersonVO) o;
-        return Objects.equals(id, personVO.id);
+        return Objects.equals(key, personVO.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(super.hashCode(), key);
     }
 }
